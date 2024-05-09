@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input {
+  background-color: rgb(236, 178, 178);
+  color: white;
+  padding: 10px 20px;
+  font-weight: 400;
+  font-size: medium;
+}
+button {
+  background-color: darkcyan;
+  font-weight: bold;
+  font-size: medium;
+  padding: 10px 20px;
+  margin-top: 20px;
+}
+img {
+  height: 50px;
+  width: 50px;
+}
+td {
+  height: 40px;
+  font-size: 20px;
+}

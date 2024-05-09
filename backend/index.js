@@ -1,0 +1,15 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const userRoute = require("./routes/user");
+const employeeRoute = require("./routes/employee");
+const verifyToken = require("./middleware/verifyToken");
+const app = express();
+const url = "mongodb://localhost:27017/delsdry";
+const port = 8080;
+app.use(express.json());
+app.use(cors());
+app.use("/api", userRoute);
+app.use("/emp", verifyToken, employeeRoute);
+mongoose.connect(url).then(console.log("mongoose is connected"));
+app.listen(port, () => console.log(`server is running at ${port}`));
