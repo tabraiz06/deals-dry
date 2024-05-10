@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CreateEmployee = () => {
+  const navigate = useNavigate();
+  const [errors, setErrors] = useState([]);
+
   const initials = {
     f_Name: "",
     f_Email: "",
@@ -44,8 +48,15 @@ const CreateEmployee = () => {
       body: formData,
     });
     const result = await response.json();
-    console.log(result);
+    if (response.ok) {
+      setUserData(initials);
+      alert("user added successfully");
+      navigate("/employees");
+    } else {
+      setErrors(result.errors);
+    }
   };
+  console.log(errors);
   return (
     <div className="h-[100vh] w-full flex items-center justify-center">
       <form
@@ -55,12 +66,42 @@ const CreateEmployee = () => {
       >
         <label htmlFor="name">NAME</label>
         <input type="text" name="f_Name" onChange={handleChange} />
+        {errors.length > 0 &&
+          errors.map((ele, index) => {
+            if (ele.path === "f_Name") {
+              return (
+                <p key={index} className="text-red-800">
+                  {ele.msg}
+                </p>
+              );
+            }
+          })}
         <label htmlFor="email">Email</label>
         <input type="text" name="f_Email" id="" onChange={handleChange} />
+        {errors.length > 0 &&
+          errors.map((ele, index) => {
+            if (ele.path === "f_Email") {
+              return (
+                <p key={index} className="text-red-800">
+                  {ele.msg}
+                </p>
+              );
+            }
+          })}
         <label htmlFor="mobile">Mobile Number</label>
         <input type="tel" name="f_Mobile" id="" onChange={handleChange} />
+        {errors.length > 0 &&
+          errors.map((ele, index) => {
+            if (ele.path === "f_Mobile") {
+              return (
+                <p key={index} className="text-red-800">
+                  {ele.msg}
+                </p>
+              );
+            }
+          })}
         <label htmlFor="designation">Designation</label>
-        <select name="f_Designation" id="" onChange={handleChange}>
+        <select name="f_Designation" id="" onChange={handleChange} required>
           <option value="select">Select</option>
           <option value="HR">HR</option>
           <option value="Manager">Manager</option>
@@ -74,6 +115,7 @@ const CreateEmployee = () => {
             name="f_gender"
             value={"male"}
             onChange={handleChange}
+            required
           />
           <label htmlFor="female">Female</label>
           <input
@@ -81,6 +123,7 @@ const CreateEmployee = () => {
             name="f_gender"
             value={"female"}
             onChange={handleChange}
+            required
           />
         </div>
         <label htmlFor="course">Course</label>
@@ -106,7 +149,7 @@ const CreateEmployee = () => {
           onChange={handleCheckbox}
         />
         <label htmlFor="image">Upload image</label>
-        <input type="file" name="f_Image" onChange={handleImage} />
+        <input type="file" name="f_Image" onChange={handleImage} required />
         <button>ADD NEW EMPLOYEE</button>
       </form>
     </div>

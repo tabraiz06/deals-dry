@@ -24,7 +24,7 @@ const upload = multer({ storage: storage });
 router.post(
   "/add",
   upload.single("f_Image"),
-  body("f_Name", "enter a valid name").isString(),
+  body("f_Name", "enter a valid name").isString().isLength({ min: 5 }),
   body("f_Email", "enter a valid email").isEmail(),
   body("f_Mobile", "enter a valid mobile number").isNumeric(),
   body("f_Designation", "enter a valid designation").isString(),
