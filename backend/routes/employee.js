@@ -77,15 +77,8 @@ router.put(
   body("f_gender").isString(),
 
   async (req, res) => {
-    const {
-      f_Image,
-      f_Name,
-      f_Email,
-      f_Mobile,
-      f_Designation,
-      f_gender,
-      f_Course,
-    } = req.body;
+    const { f_Name, f_Email, f_Mobile, f_Designation, f_gender, f_Course } =
+      req.body;
     const imagePath = req.file.filename;
     try {
       const errors = validationResult(req);

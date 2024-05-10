@@ -16,7 +16,7 @@ const EditEmployee = ({ employee }) => {
   };
   const [userData, setUserData] = useState(initials);
   console.log(userData);
-  const [image, setImage] = useState(" f_Image");
+  const [image, setImage] = useState(employee.f_Image);
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
